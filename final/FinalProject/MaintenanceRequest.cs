@@ -6,18 +6,25 @@ namespace FinalProject
     {
         protected List<MaintenanceRequest> maintenanceRequests;
         private FinalProject.Tenant tenant; // Specify the namespace for the Tenant class
-
+ public MaintenanceRequest(string issue, bool isResolved)
+    {
+        Issue = issue;
+        IsResolved = isResolved;
+    }
         public MaintenanceRequest(string issue, Tenant tenant)
         {
             Issue = issue;
             this.tenant = tenant;
         }
 
-        public MaintenanceRequest()
+        public MaintenanceRequest(string issue)
         {
             
         }
 
+        public MaintenanceRequest()
+        {
+        }
 
         public object Issue { get; private set; }
         public bool IsResolved { get; internal set; }

@@ -13,7 +13,8 @@ namespace FinalProject;
     public string ApartmentNumber { get; }
 
     public TenantInfo(int age, string password, string apartmentNumber)
-    {
+    {   
+        
         Age = age;
         Password = password;
         ApartmentNumber = apartmentNumber;
@@ -52,14 +53,39 @@ namespace FinalProject;
 }
 
     public void ViewMaintenanceRequests()
+{
+    // Load maintenance requests from the file associated with the tenant
+    string maintenanceRequestFile = $"{Name}_MaintenanceRequests.txt";
+    if (File.Exists(maintenanceRequestFile))
     {
         Console.WriteLine($"Maintenance requests for {Name}:");
-        int count = 0;
-        foreach (MaintenanceRequest request in maintenanceRequests)
+        string[] requestLines = File.ReadAllLines(maintenanceRequestFile);
+        foreach (string requestLine in requestLines)
         {
-            Console.WriteLine($"{count++}. {request.Issue} - Status: {(request.IsResolved ? "Resolved" : "Pending")}");
+            // Assuming each line is formatted as "<Issue>:<Status>"
+            string[] parts = requestLine.Split(':');
+            if (parts.Length == 2)
+            {
+                string issue = parts[0].Trim();
+                bool isResolved = parts[1].Trim().Equals("Resolved", StringComparison.OrdinalIgnoreCase);
+
+                // Create a new MaintenanceRequest object and add it to the list
+                MaintenanceRequest request = new MaintenanceRequest(issue, isResolved);
+                maintenanceRequests.Add(request);
+            }
+            else
+            {
+                Console.WriteLine($"Invalid format in maintenance request file for {Name}: {requestLine}");
+            }
         }
     }
+    else
+    {
+        Console.WriteLine($"No maintenance requests found for {Name}.");
+    }
+}
+
+
 
     
     public void AddCharges(decimal amount, string description)

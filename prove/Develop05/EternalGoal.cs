@@ -1,11 +1,11 @@
 public class EternalGoal : Goal
 {
-    private int _timesAccomplished;
+    private int _timesAccomplished; // Declare _timesAccomplished
 
     public EternalGoal(string name, string description, int timesAccomplished, int points) : base(name, description, points, false)
     {
         _type = 2;
-        _timesAccomplished = timesAccomplished;
+        _timesAccomplished = timesAccomplished; // Initialize _timesAccomplished
     }
 
     public override void SetIsCompleted()
@@ -41,16 +41,19 @@ public class EternalGoal : Goal
         }
     }
 
-    public override string GetStringRep()
+   public override string GetStringRep()
+{
+    try
     {
-        try
-        {
-            return $"{_type}|{_name}|{_description}|{_timesAccomplished}|{_points}";
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return string.Empty;
-        }
+        // Convert boolean values to '1' or '0' strings
+        string isCompletedString = _isCompleted ? "1" : "0";
+        return $"{_type}|{_name}|{_description}|{_points}|{isCompletedString}|{_timesAccomplished}";
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
+        return string.Empty;
+    }
+}
+
 }

@@ -5,14 +5,17 @@ public abstract class Goal
     protected string _description;
     protected int _points;
     protected int _type;
+    public int Points { get; protected set; }
+    public string Name { get; set; }
+    
 
-    public Goal(string name, string description, int points, bool isCompleted)
+    public Goal(string Name, string description, int Points, bool isCompleted)
     {
         try
         {
-            _name = name;
+            _name = Name;
             _description = description;
-            _points = points;
+            _points = Points;
             _isCompleted = isCompleted;
         }
         catch (Exception ex)
@@ -51,4 +54,5 @@ public abstract class Goal
             return 0;
         }
     }
+    
 }

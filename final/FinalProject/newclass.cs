@@ -104,6 +104,7 @@ namespace FinalProject
                     {
                         case 1:
                             Console.WriteLine($"Maintenance requests for {tenant.Name}:");
+                            tenant.ViewMaintenanceRequests();
                             int count = 0;
                             foreach (MaintenanceRequest request in tenant.GetMaintenanceRequests())
                             {
